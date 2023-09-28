@@ -20,5 +20,7 @@ from django.urls import path
 from where_to_go.views import show_mainpage
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', show_mainpage),
+
 ]
