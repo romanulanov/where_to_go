@@ -77,6 +77,8 @@ TEMPLATES = [
     },
 ]
 
+MEDIA_ROOT = 'media/'
+
 WSGI_APPLICATION = 'where_to_go.wsgi.application'
 
 
