@@ -1,17 +1,30 @@
 from django.db import models
 
-class Coordinate(models.Model):
-    models.FloatField(verbose_name='Широта')
-    models.FloatField(verbose_name='Долгота')
+
+
 
 class Place(models.Model):
-    title = models.CharField(max_length=50)
-    imgs = models.ImageField(upload_to='images',
-                              null=True,
-                              blank=True,
-                              verbose_name='Картинка')
-    description_short = models.TextField()
-    description_long = models.TextField()
-    coordinates = models.ForeignKey(Coordinate, on_delete=models.CASCADE, verbose_name='Координаты')
+    title = models.CharField(max_length=50,
+                              blank=True,)
+
+    description_short = models.TextField(
+                              blank=True,)
+    description_long = models.TextField(
+                              blank=True,)
+    lat = models.FloatField(blank=True, null=True,verbose_name='Широта')
+    lon = models.FloatField(blank=True, null=True,verbose_name='Долгота')
+
+    def __str__(self):
+        return self.title
                                    
+
+class Image(models.Model):
+    num = models.IntegerField(blank=True, null=True, verbose_name='Порядковый номер')
+    title = models.ForeignKey(Place, on_delete=models.CASCADE,
+                              verbose_name='Мероприятие')
+    img = models.ImageField(blank=True,
+                            )
+    
+    def __str__(self):
+        return f'{self.num} {self.title}'
 
