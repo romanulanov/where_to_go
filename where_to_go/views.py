@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from geojson import Feature, Point, FeatureCollection
 from django.template.response import TemplateResponse
 from places.models import Place, Image
 import json
@@ -23,37 +24,13 @@ for id, place in enumerate(places):
 
     with open(f"static/places/{id}.json", "w") as file:
         file.write(place_details_json)
-    
-    
-place_details = {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.62, 55.793676]
-          },
-          "properties": {
-            "title": "Легенды Москвы",
-            "placeId": "moscow_legends",
-            "detailsUrl": "static/places/0.json"
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.64, 55.753676]
-          },
-          "properties": {
-            "title": "Крыши24.рф",
-            "placeId": "roofs24",
-            "detailsUrl": "static/places/1.json"
-          }
-        }
-      ]
-    }
+
+place_details = []
+for id, place in enumerate(places):
+    place_details.append(Feature(geometry=Point((place.lat, place.lon)), properties = {"title":place.title, "placeId":id, "detailsUrl":f"static/places/{id}.json"}))
+
+place_details = FeatureCollection(place_details)  
+
 data = {"dict": place_details}
 def index(request):
     return TemplateResponse(request,  "index.html", context=data)
