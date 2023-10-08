@@ -1,11 +1,10 @@
 from os import path
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from geojson import Feature, Point, FeatureCollection
 from django.template.response import TemplateResponse
 from places.models import Place, Image
 import json
-
 
 
 places = Place.objects.all()

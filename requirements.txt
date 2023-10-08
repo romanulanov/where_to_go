@@ -1,2 +1,2 @@
-django-extensions==0.9.3
+django-extensions==0.9
 geojson==3.0.1
