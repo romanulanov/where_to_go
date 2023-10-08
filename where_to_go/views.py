@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from os import path
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 from geojson import Feature, Point, FeatureCollection
 from django.template.response import TemplateResponse
 from places.models import Place, Image
@@ -9,8 +11,9 @@ import json
 places = Place.objects.all()
 
 for id, place in enumerate(places):
-    place_details = {}
-    place_details["title"] = place.title
+    place_details = dict()
+    title_short = place.title[place.title.find("«") + 1: place.title.find("»")]
+    place_details["title"] = title_short
     place_details["description_short"] = place.description_short
     place_details["description_long"] = place.description_long
     place_details["coordinates"] = {}
@@ -27,10 +30,19 @@ for id, place in enumerate(places):
 
 place_details = []
 for id, place in enumerate(places):
-    place_details.append(Feature(geometry=Point((place.lat, place.lon)), properties = {"title":place.title, "placeId":id, "detailsUrl":f"static/places/{id}.json"}))
+    title_short = place.title[place.title.find("«") + 1: place.title.find("»")]
+    place_details.append(Feature(geometry=Point((place.lat, place.lon)), properties = {"title":title_short, "placeId":id, "detailsUrl":f"static/places/{id}.json"}))
 
 place_details = FeatureCollection(place_details)  
 
 data = {"dict": place_details}
+
+
 def index(request):
     return TemplateResponse(request,  "index.html", context=data)
+
+
+def places(request, place_id):
+    place = get_object_or_404(Place.objects.all(), pk=place_id)
+    context = {"place":place}
+    return render(request, 'place-details.html', context)
