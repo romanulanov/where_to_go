@@ -1,8 +1,6 @@
 from django.db import models
 
 
-
-
 class Place(models.Model):
     title = models.CharField(max_length=50,
                               blank=True,)
@@ -24,7 +22,7 @@ class Image(models.Model):
                               verbose_name='Мероприятие')
     img = models.ImageField(blank=True,
                             )
-    
+    #shot = models.ImageField(null=True, blank=True, upload_to="media/")
     def __str__(self):
         return f'{self.num} {self.title}'
 
