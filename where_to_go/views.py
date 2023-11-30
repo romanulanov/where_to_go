@@ -8,22 +8,7 @@ from places.models import Place, Image
 import json
 
 
-places_details = []
-places = Place.objects.all()
-for id, place in enumerate(places):
-    place_details = dict()
-    title_short = place.title[place.title.find("«") + 1: place.title.find("»")]
-    place_details["title"] = title_short
-    place_details["description_short"] = place.description_short
-    place_details["description_long"] = place.description_long
-    place_details["coordinates"] = {}
-    place_details["coordinates"]["lng"] = place.lon
-    place_details["coordinates"]["lat"] = place.lat
-    place_details["imgs"] = []
-    images = Image.objects.filter(title__title__contains =place.title)
-    for image in images:
-        place_details["imgs"].append(f"{image.img.url}") 
-    place_details_json = json.dumps(places_details)
+
    
 
 
@@ -51,9 +36,10 @@ def get_GeoJSON(request):
     for id, place in enumerate(places):
         title_short = place.title[place.title.find("«") + 1: place.title.find("»")]
         place_details.append(Feature(geometry=Point((place.lat, place.lon)), 
-                                    properties = {"title":title_short,
-                                                "placeId":id,
-                                                "detailsUrl": reverse('place-archive', kwargs={'place_id':id})
+                                    properties = \
+                                    {"title":title_short,
+                                    "placeId":id,
+                                    "detailsUrl": reverse('place-archive', kwargs={'place_id':id})
                                                 }
                                                 ))                                       
     place_details = FeatureCollection(place_details)
@@ -61,5 +47,18 @@ def get_GeoJSON(request):
 
 
 def index(request):
-    data = {"dict": get_GeoJSON}
-    return TemplateResponse(request,  "index.html", context=data)
+    places = Place.objects.all()
+    place_details = []
+    for id, place in enumerate(places):
+        title_short = place.title[place.title.find("«") + 1: place.title.find("»")]
+        place_details.append(Feature(geometry=Point((place.lat, place.lon)), 
+                                    properties = {"title":title_short,
+                                                "placeId": int(id+1),
+                                                "detailsUrl": reverse('place-archive', kwargs={'place_id': int(id+1)})
+                                                }
+                                                ))                                       
+    print(place_details)
+    place_details = FeatureCollection(place_details)
+    
+    data = {"dict": place_details}
+    return TemplateResponse(request, "index.html", context=data)
