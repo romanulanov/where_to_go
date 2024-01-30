@@ -1,15 +1,10 @@
 from os import path
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from geojson import Feature, Point, FeatureCollection
 from django.template.response import TemplateResponse
 from places.models import Place, Image
-import json
-
-
-
-   
 
 
 def places(request, place_id):
@@ -30,35 +25,21 @@ def places(request, place_id):
     return JsonResponse(place_details, safe=False, json_dumps_params={'indent': 2, 'ensure_ascii': False})
 
 
-def get_GeoJSON(request):
-    places = Place.objects.all()
-    place_details = []
-    for id, place in enumerate(places):
-        title_short = place.title[place.title.find("«") + 1: place.title.find("»")]
-        place_details.append(Feature(geometry=Point((place.lat, place.lon)), 
-                                    properties = \
-                                    {"title":title_short,
-                                    "placeId":id,
-                                    "detailsUrl": reverse('place-archive', kwargs={'place_id':id})
-                                                }
-                                                ))                                       
-    place_details = FeatureCollection(place_details)
-    return place_details
-
-
 def index(request):
     places = Place.objects.all()
     place_details = []
     for id, place in enumerate(places):
         title_short = place.title[place.title.find("«") + 1: place.title.find("»")]
-        place_details.append(Feature(geometry=Point((place.lat, place.lon)), 
-                                    properties = {"title":title_short,
-                                                "placeId": int(id+1),
-                                                "detailsUrl": reverse('place-archive', kwargs={'place_id': int(id+1)})
-                                                }
-                                                ))                                       
-    print(place_details)
-    place_details = FeatureCollection(place_details)
+        place_details.append(Feature
+                                (
+                                geometry=Point((place.lat, place.lon)), 
+                                properties = {
+                                    "title":title_short,
+                                    "placeId": int(id+1),
+                                    "detailsUrl": reverse('place-archive', kwargs={'place_id': int(id+1)})
+                                }
+                                )
+                            )                                       
     
-    data = {"dict": place_details}
-    return TemplateResponse(request, "index.html", context=data)
+    place_details = FeatureCollection(place_details)
+    return TemplateResponse(request, "index.html", context={"dict": place_details})
