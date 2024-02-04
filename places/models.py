@@ -20,6 +20,7 @@ class Place(models.Model):
                             verbose_name='Долгота',
                             )
 
+
     def __str__(self):
         return self.title
                                    

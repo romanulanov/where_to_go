@@ -2,17 +2,18 @@ from django.contrib import admin
 from .models import Place, Image
 from django.utils.safestring import mark_safe
 from adminsortable2.admin import SortableAdminBase, SortableAdminMixin, SortableInlineAdminMixin
-
-
+from tinymce.models import HTMLField
+from tinymce.widgets import TinyMCE
+from django.db import models
 import traceback
-import sys
+
     
 
 @admin.register(Image)
 class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
     search_fields = ("title",)
     readonly_fields = ["get_preview"]
-    fields = ("title", "img", "get_preview", "num")
+    fields = ("title", "img", "get_preview")
     ordering = ['num']
     def get_preview(self, obj):
         try:
@@ -49,6 +50,9 @@ class PlaceAdmin(SortableAdminMixin,  admin.ModelAdmin):
     search_fields = ("title",)
     inlines = [ImageInline]
     ordering = ['id'] 
+    content = HTMLField()
+    formfield_overrides = {
+        models.TextField: {'widget': TinyMCE()},
+    }
     
-  
         
