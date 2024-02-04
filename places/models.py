@@ -25,7 +25,8 @@ class Place(models.Model):
                                    
 
 class Image(models.Model):
-    num = models.IntegerField(blank=True,
+    num = models.IntegerField(default=0,
+                              blank=True,
                               null=True,
                               verbose_name='Порядковый номер',
                               )
@@ -34,8 +35,13 @@ class Image(models.Model):
                               verbose_name='Мероприятие',
                               )
     img = models.ImageField(blank=True,
-                            upload_to='media/',
+                            
                             )
-    def __str__(self):
-        return f'{self.num} {self.title}'
+    
+    
+    class Meta:
+        ordering = ['num']
 
+
+    def __str__(self):
+        return f'{self.title}'
