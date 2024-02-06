@@ -4,6 +4,7 @@ from django.db import models
 class Place(models.Model):
     title = models.CharField(max_length=50,
                               blank=True,
+                              unique=True,
                               )
     description_short = models.TextField(
                               blank=True,
@@ -23,6 +24,10 @@ class Place(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+    class Meta:
+        unique_together = ('lon', 'lat')
                                    
 
 class Image(models.Model):

@@ -10,7 +10,7 @@ from places.models import Place, Image
 def places(request, place_id):
     place = get_object_or_404(Place.objects.all(), pk=place_id)
     place_details = dict()
-    title_short = place.title[place.title.find("«") + 1: place.title.find("»")]
+    title_short = place.title
     place_details = {
                     "title" : title_short,
                     "description_short" : place.description_short,
@@ -28,15 +28,15 @@ def places(request, place_id):
 def index(request):
     places = Place.objects.all()
     place_details = []
-    for id, place in enumerate(places):
-        title_short = place.title[place.title.find("«") + 1: place.title.find("»")]
+    for id, place in enumerate(places, start=1):
+        title_short = place.title
         place_details.append(Feature
                                 (
                                 geometry=Point((place.lat, place.lon)), 
                                 properties = {
                                     "title":title_short,
-                                    "placeId": int(id+1),
-                                    "detailsUrl": reverse('place-archive', kwargs={'place_id': int(id+1)})
+                                    "placeId": id,
+                                    "detailsUrl": reverse('place-archive', kwargs={'place_id': id})
                                 }
                                 )
                             )                                       

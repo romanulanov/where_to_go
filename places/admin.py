@@ -7,7 +7,6 @@ from tinymce.widgets import TinyMCE
 from django.db import models
 import traceback
 
-    
 
 @admin.register(Image)
 class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
