@@ -42,4 +42,4 @@ class Image(models.Model):
         ordering = ['num']
 
     def __str__(self):
-        return f'{self.title}'
+        return self.title
