@@ -8,6 +8,9 @@ from django.db import models
 import traceback
 
 
+WIDTH_WINDOW_PREVIEW=200
+HEIGHT_WINDOW_PREVIEW=200
+
 @admin.register(Image)
 class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
     search_fields = ('title__title',)
@@ -21,8 +24,8 @@ class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
             return mark_safe('<img src="{url}" width="{width}" height={height}\
                              />'.format(
                 url=obj.img.url,
-                width=200,
-                height=200,
+                width=WIDTH_WINDOW_PREVIEW,
+                height=HEIGHT_WINDOW_PREVIEW,
                 )
             )
         except Exception:
@@ -41,8 +44,8 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
             return mark_safe('<img src="{url}" width="{width}" height={height}\
                              />'.format(
                 url=obj.img.url,
-                width=200,
-                height=200,
+                width=WIDTH_WINDOW_PREVIEW,
+                height=HEIGHT_WINDOW_PREVIEW,
             ))
         except Exception as e:
             print(e)
