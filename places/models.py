@@ -34,6 +34,7 @@ class Image(models.Model):
     order = models.IntegerField(default=0,
                               blank=True,
                               verbose_name='Порядковый номер',
+                              db_index=True,
                               )
     place = models.ForeignKey(Place,
                               on_delete=models.CASCADE,
@@ -45,4 +46,4 @@ class Image(models.Model):
         ordering = ['order']
 
     def __str__(self):
-        return str(self.title)
+        return str(self.place)
