@@ -14,11 +14,9 @@ class Place(models.Model):
                               blank=True,
                               )
     lat = models.FloatField(blank=True,
-                            null=True,
                             verbose_name='Широта',
                             )
     lon = models.FloatField(blank=True,
-                            null=True,
                             verbose_name='Долгота',
                             )
 
@@ -32,16 +30,13 @@ class Place(models.Model):
 class Image(models.Model):
     num = models.IntegerField(default=0,
                               blank=True,
-                              null=True,
                               verbose_name='Порядковый номер',
                               )
     title = models.ForeignKey(Place,
                               on_delete=models.CASCADE,
                               verbose_name='Мероприятие',
                               )
-    img = models.ImageField(blank=True,
-
-                            )
+    img = models.ImageField()
 
     class Meta:
         ordering = ['num']
