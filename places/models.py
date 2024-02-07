@@ -39,10 +39,10 @@ class Image(models.Model):
                               on_delete=models.CASCADE,
                               verbose_name='Мероприятие',
                               )
-    img = models.ImageField()
+    img = models.ImageField(verbose_name='Изображение',)
 
     class Meta:
         ordering = ['num']
 
     def __str__(self):
-        return self.title
+        return str(self.title)
