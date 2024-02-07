@@ -34,16 +34,16 @@ def places(request, place_id):
 def index(request):
     places = Place.objects.all()
     place_details = []
-    for id, place in enumerate(places, start=1):
+    for place_id, place in enumerate(places, start=1):
         title_short = place.title
         place_details.append(Feature
                              (geometry=Point((place.lat, place.lon)),
                                  properties={
                                     "title": title_short,
-                                    "placeId": id,
+                                    "placeId": place_id,
                                     "detailsUrl": reverse(
                                         'place-archive',
-                                        kwargs={'place_id': id}
+                                        kwargs={'place_id': place_id}
                                                 )
                                     }
                               )
