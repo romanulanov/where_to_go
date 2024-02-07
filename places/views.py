@@ -9,10 +9,8 @@ from places.models import Place, Image
 
 def places(request, place_id):
     place = get_object_or_404(Place.objects.all(), pk=place_id)
-    place_details = dict()
-    title_short = place.title
     place_details = {
-                    "title": title_short,
+                    "title": place.title,
                     "short_description": place.short_description,
                     "long_description": place.long_description,
                     "coordinates": {"lng": place.lon,
