@@ -6,13 +6,13 @@ from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 
 
-
-
 class Command(BaseCommand):
     help = 'Загрузка данных из json'
 
     def add_arguments(self, parser):
-        parser.add_argument('data_url', type=str, help='Введите ссылку на данные')
+        parser.add_argument('data_url',
+                            type=str,
+                            help='Введите ссылку на данные')
 
     def handle(self, *args, **kwargs):
 
@@ -46,6 +46,6 @@ class Command(BaseCommand):
                 'description_long': description_long,
             }
         )
-        
+
         for image_url in images_url:
             upload_image(place, image_url)

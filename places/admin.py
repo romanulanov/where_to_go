@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Place, Image
 from django.utils.safestring import mark_safe
-from adminsortable2.admin import SortableAdminBase, SortableAdminMixin, SortableInlineAdminMixin
+from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 from tinymce.models import HTMLField
 from tinymce.widgets import TinyMCE
 from django.db import models
@@ -14,10 +14,12 @@ class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
     readonly_fields = ["get_preview"]
     fields = ("title", "img", "get_preview")
     ordering = ['num']
+
     def get_preview(self, obj):
         try:
-            return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(
-                url = obj.img.url,
+            return mark_safe('<img src="{url}" width="{width}" height={height}\
+                             />'.format(
+                url=obj.img.url,
                 width=200,
                 height=200,
                 )
@@ -29,13 +31,14 @@ class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
 class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
     readonly_fields = ['get_preview']
-    fields = ['img', 'title','get_preview','num']
+    fields = ['img', 'title', 'get_preview', 'num']
     ordering = ['num']
     sortable_field_name = 'num'
 
     def get_preview(self, obj):
         try:
-            return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(
+            return mark_safe('<img src="{url}" width="{width}" height={height}\
+                             />'.format(
                 url=obj.img.url,
                 width=200,
                 height=200,
@@ -48,10 +51,8 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
 class PlaceAdmin(SortableAdminMixin,  admin.ModelAdmin):
     search_fields = ("title",)
     inlines = [ImageInline]
-    ordering = ['id'] 
+    ordering = ['id']
     content = HTMLField()
     formfield_overrides = {
         models.TextField: {'widget': TinyMCE()},
     }
-    
-        

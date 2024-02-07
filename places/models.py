@@ -2,10 +2,11 @@ from django.db import models
 
 
 class Place(models.Model):
-    title = models.CharField(max_length=50,
-                              blank=True,
-                              unique=True,
-                              )
+    title = models.CharField(
+        max_length=50,
+        blank=True,
+        unique=True,
+        )
     description_short = models.TextField(
                               blank=True,
                               )
@@ -21,14 +22,12 @@ class Place(models.Model):
                             verbose_name='Долгота',
                             )
 
-
     def __str__(self):
         return self.title
-    
 
     class Meta:
         unique_together = ('lon', 'lat')
-                                   
+
 
 class Image(models.Model):
     num = models.IntegerField(default=0,
@@ -41,13 +40,11 @@ class Image(models.Model):
                               verbose_name='Мероприятие',
                               )
     img = models.ImageField(blank=True,
-                            
+
                             )
-    
-    
+
     class Meta:
         ordering = ['num']
-
 
     def __str__(self):
         return f'{self.title}'
