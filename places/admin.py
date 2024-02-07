@@ -10,10 +10,11 @@ import traceback
 
 @admin.register(Image)
 class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
-    search_fields = ("place",)
-    readonly_fields = ["get_preview"]
-    fields = ("place", "img", "get_preview")
+    search_fields = ('title__title',)
+    readonly_fields = ['get_preview']
+    fields = ('place', 'img', 'get_preview')
     ordering = ['order']
+    raw_id_fields = ('place',)
 
     def get_preview(self, obj):
         try:
