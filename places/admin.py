@@ -5,11 +5,9 @@ from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 from tinymce.models import HTMLField
 from tinymce.widgets import TinyMCE
 from django.db import models
+from django.utils.html import format_html
 import traceback
 
-
-WIDTH_WINDOW_PREVIEW=200
-HEIGHT_WINDOW_PREVIEW=200
 
 @admin.register(Image)
 class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
@@ -21,13 +19,7 @@ class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
 
     def get_preview(self, obj):
         try:
-            return mark_safe('<img src="{url}" width="{width}" height={height}\
-                             />'.format(
-                url=obj.img.url,
-                width=WIDTH_WINDOW_PREVIEW,
-                height=HEIGHT_WINDOW_PREVIEW,
-                )
-            )
+            return format_html('<img src="{}" style="max-width:200px; max-height:200px;" />', obj.img.url)
         except Exception:
             print(traceback.format_exc())
 
@@ -41,12 +33,7 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
 
     def get_preview(self, obj):
         try:
-            return mark_safe('<img src="{url}" width="{width}" height={height}\
-                             />'.format(
-                url=obj.img.url,
-                width=WIDTH_WINDOW_PREVIEW,
-                height=HEIGHT_WINDOW_PREVIEW,
-            ))
+            return format_html('<img src="{}" style="max-width:200px; max-height:200px;" />', obj.img.url)
         except Exception as e:
             print(e)
 
