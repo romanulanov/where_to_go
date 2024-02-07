@@ -17,7 +17,7 @@ def places(request, place_id):
                                     "lat": place.lat},
                     "imgs": []
                     }
-    images = Image.objects.filter(title__title__contains=place.title)
+    images = Image.objects.filter(place__title__contains=place.title)
     for image in images:
         place_details["imgs"].append(f"{image.img.url}")
     return JsonResponse(

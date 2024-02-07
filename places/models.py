@@ -31,18 +31,18 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    num = models.IntegerField(default=0,
+    order = models.IntegerField(default=0,
                               blank=True,
                               verbose_name='Порядковый номер',
                               )
-    title = models.ForeignKey(Place,
+    place = models.ForeignKey(Place,
                               on_delete=models.CASCADE,
                               verbose_name='Мероприятие',
                               )
     img = models.ImageField(verbose_name='Изображение',)
 
     class Meta:
-        ordering = ['num']
+        ordering = ['order']
 
     def __str__(self):
         return str(self.title)
