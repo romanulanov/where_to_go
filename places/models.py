@@ -6,12 +6,15 @@ class Place(models.Model):
         max_length=50,
         blank=True,
         unique=True,
+        verbose_name='Название',
         )
     short_description = models.TextField(
                               blank=True,
+                              verbose_name='Краткое описание',
                               )
     long_description = models.TextField(
                               blank=True,
+                              verbose_name='Полное описание',
                               )
     lat = models.FloatField(blank=True,
                             verbose_name='Широта',
