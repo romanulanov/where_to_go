@@ -61,7 +61,7 @@
         <img v-if="mainPhotoSrc" v-bind:src="mainPhotoSrc" class="d-block shadow mb-3 rounded" v-bind:alt="selectedPlace.title">
         {% verbatim %}
           <h5 class="mb-3" >{{ selectedPlace.title }}</h5>
-          <p>{{ selectedPlace.short_description }}</p>
+          <p>{{selectedPlace.short_description }}</p>
         {% endverbatim %}
         <div id="place-photos" class="carousel slide mb-3 shadow" data-ride="carousel" data-interval="5000">
           <ol class="carousel-indicators">
@@ -272,8 +272,8 @@
           title: data.title,
           placeId: placeId,
           imgs: data.imgs || [],
-          short_description: data.description_short,
-          long_description: data.description_long,
+          short_description: data.short_description,
+          long_description: data.long_description,
         };
       } finally {
         if (sidebarApp.loadingPlaceId == placeId){

@@ -32,8 +32,8 @@ class Command(BaseCommand):
 
         title = answer['title']
         images_url = answer['imgs']
-        description_short = answer['description_short']
-        description_long = answer['description_long']
+        short_description = answer['description_short']
+        long_description = answer['description_long']
         lat = answer['coordinates']['lng']
         lon = answer['coordinates']['lat']
 
@@ -42,8 +42,8 @@ class Command(BaseCommand):
             lon=lon,
             lat=lat,
             defaults={
-                'description_short': description_short,
-                'description_long': description_long,
+                'short_description': short_description,
+                'long_description': long_description,
             }
         )
 

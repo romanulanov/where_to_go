@@ -7,10 +7,10 @@ class Place(models.Model):
         blank=True,
         unique=True,
         )
-    description_short = models.TextField(
+    short_description = models.TextField(
                               blank=True,
                               )
-    description_long = models.TextField(
+    long_description = models.TextField(
                               blank=True,
                               )
     lat = models.FloatField(blank=True,

@@ -13,8 +13,8 @@ def places(request, place_id):
     title_short = place.title
     place_details = {
                     "title": title_short,
-                    "description_short": place.description_short,
-                    "description_long": place.description_long,
+                    "short_description": place.short_description,
+                    "long_description": place.long_description,
                     "coordinates": {"lng": place.lon,
                                     "lat": place.lat},
                     "imgs": []
