@@ -18,8 +18,11 @@ def places(request, place_id):
                     "imgs": []
                     }
     images = place.images.all()
-    for image in images:
-        place_details["imgs"].append(f"{image.img.url}")
+    images = place.images.all()
+
+    image_urls = [image.img.url for image in images]
+    place_details["imgs"] = image_urls
+    
     return JsonResponse(
         place_details,
         safe=False,
