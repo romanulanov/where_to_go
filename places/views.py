@@ -18,8 +18,6 @@ def places(request, place_id):
                     "imgs": []
                     }
     images = place.images.all()
-    images = place.images.all()
-
     image_urls = [image.img.url for image in images]
     place_details["imgs"] = image_urls
     
