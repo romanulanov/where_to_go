@@ -1,12 +1,13 @@
-from django.contrib import admin
-from .models import Place, Image
-from django.utils.safestring import mark_safe
+import traceback
+
 from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
-from tinymce.models import HTMLField
-from tinymce.widgets import TinyMCE
+from django.contrib import admin
 from django.db import models
 from django.utils.html import format_html
-import traceback
+from tinymce.models import HTMLField
+from tinymce.widgets import TinyMCE
+
+from .models import Place, Image
 
 
 @admin.register(Image)

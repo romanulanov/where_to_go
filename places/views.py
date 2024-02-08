@@ -1,10 +1,10 @@
-from django.shortcuts import render
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
-from geojson import Feature, Point, FeatureCollection
 from django.template.response import TemplateResponse
-from places.models import Place, Image
+from django.urls import reverse
+
+from geojson import Feature, Point, FeatureCollection
+from places.models import Place
 
 
 def places(request, place_id):
