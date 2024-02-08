@@ -16,12 +16,8 @@ class Place(models.Model):
                               blank=True,
                               verbose_name='Полное описание',
                               )
-    lat = models.FloatField(blank=True,
-                            verbose_name='Широта',
-                            )
-    lon = models.FloatField(blank=True,
-                            verbose_name='Долгота',
-                            )
+    lat = models.FloatField(verbose_name='Широта')
+    lon = models.FloatField(verbose_name='Долгота')
 
     def __str__(self):
         return self.title
