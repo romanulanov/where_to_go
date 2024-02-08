@@ -8,7 +8,8 @@ from places.models import Place
 
 
 def places(request, place_id):
-    place = get_object_or_404(Place.objects.prefetch_related('images'), pk=place_id)
+    place = get_object_or_404(Place.objects.prefetch_related('images'),
+                              pk=place_id)
     place_details = {
                     "title": place.title,
                     "short_description": place.short_description,
@@ -20,7 +21,7 @@ def places(request, place_id):
     images = place.images.all()
     image_urls = [image.img.url for image in images]
     place_details["imgs"] = image_urls
-    
+
     return JsonResponse(
         place_details,
         safe=False,

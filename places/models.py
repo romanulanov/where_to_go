@@ -28,14 +28,14 @@ class Place(models.Model):
 
 class Image(models.Model):
     order = models.IntegerField(default=0,
-                              blank=True,
-                              verbose_name='Порядковый номер',
-                              db_index=True,
-                              )
+                                blank=True,
+                                verbose_name='Порядковый номер',
+                                db_index=True,
+                                )
     place = models.ForeignKey(Place,
                               on_delete=models.CASCADE,
                               verbose_name='Мероприятие',
-                              related_name='images', 
+                              related_name='images',
                               )
     img = models.ImageField(verbose_name='Изображение',)
 

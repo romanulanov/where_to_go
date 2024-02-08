@@ -20,7 +20,9 @@ class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
 
     def get_preview(self, obj):
         try:
-            return format_html('<img src="{}" style="max-width:200px; max-height:200px;" />', obj.img.url)
+            return format_html(
+                '<img src="{}" style="max-width:200px; max-height:200px;" />',
+                obj.img.url)
         except Exception:
             print(traceback.format_exc())
 
@@ -34,7 +36,9 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
 
     def get_preview(self, obj):
         try:
-            return format_html('<img src="{}" style="max-width:200px; max-height:200px;" />', obj.img.url)
+            return format_html(
+                '<img src="{}" style="max-width:200px; max-height:200px;" />',
+                obj.img.url)
         except Exception as e:
             print(e)
 
